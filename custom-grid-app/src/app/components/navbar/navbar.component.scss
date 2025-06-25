@@ -1,0 +1,36 @@
+.topbar-container {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .icon {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #007bff;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<div class="dashboard-charts">
+
+  <div class="card bar-card">
+    <div class="card-header">
+      <div class="title">
+        <img src="assets/vendor-icon.png" alt="icon" class="icon" />
+        <div>
+          <h3>Vendor breakdown</h3>
+          <p>Keep track of vendors and their security ratings.</p>
+        </div>
+      </div>
+     
+    </div>
+
+    <apx-chart
+      [series]="barSeries"
+      [chart]="barChart"
+      [xaxis]="barXAxis"
+    ></apx-chart>
+    <button class="report-btn">View full report</button>
+  </div>
+
+  <div class="card donut-card">
+    <h3>Vendors monitored</h3>
+    <apx-chart
+      [series]="donutSeries"
+      [chart]="donutChart"
+      [labels]="donutLabels.labels"
+    ></apx-chart>
+    <p class="info">You’ve used 80% of available spots.</p>
+    <p class="limit-text">You’ve almost reached your limit</p>
+    <button class="upgrade-btn">⚡ Upgrade plan</button>
+  </div>
+
+</div>

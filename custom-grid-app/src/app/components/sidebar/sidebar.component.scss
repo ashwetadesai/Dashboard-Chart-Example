@@ -1,0 +1,37 @@
+.sidebar-container {
+  width: 80px;
+  background-color: #ffffff;
+  height: 100vh;
+  padding: 20px 0;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .icon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .icon-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: #6b7280;
+
+    &.active {
+      background-color: #f3f4f6;
+      color: #7c3aed;
+    }
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+}

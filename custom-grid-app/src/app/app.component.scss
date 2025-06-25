@@ -1,0 +1,29 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+ 
+
+  .main-content {
+    flex: 1;
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+
+    .topbar {
+      height: 64px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background-color: #f4f6fa;
+      padding: 20px;
+    }
+  }
+}
