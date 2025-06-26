@@ -153,7 +153,7 @@
       <input type="number" formControlName="license_used" placeholder="License Used" />
       <label>Teams</label>
       <select formControlName="teams" multiple class="multi-select">
-        <option *ngFor="let team of teamOptions" [ngValue]="team">
+        <option *ngFor="let team of teamOptions" [ngValue]="team.value">
           {{ team.value }}
         </option>
       </select>

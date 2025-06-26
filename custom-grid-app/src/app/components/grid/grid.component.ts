@@ -95,8 +95,9 @@ export class GridComponent implements OnInit {
       role: user.role,
       license_used: user.license_used,
       status: user.status,
-      teams:user.teams
+      teams:user.teams.map((t:any)=>t.value)
     });
+    console.log(user.teams.map((t:any)=>t.value));
     this.showModal = true;
   }
 
@@ -111,6 +112,9 @@ export class GridComponent implements OnInit {
   saveUser(){
     if (this.userForm.invalid) return;
     const formData = this.userForm.value;
+    const selectedTeamObjects = this.teamOptions.filter(option =>
+      formData.teams.includes(option.value)
+    );
     const newUser = {
       id: crypto.randomUUID(),
       name: {
@@ -121,7 +125,7 @@ export class GridComponent implements OnInit {
       role: formData.role,
       license_used: formData.license_used,
       status: formData.status,
-      teams: formData.teams
+      teams: selectedTeamObjects
     };
 
     if (this.isEdit && this.editIndex !== null) {
