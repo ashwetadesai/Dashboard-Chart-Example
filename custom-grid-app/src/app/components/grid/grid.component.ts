@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/api.service';
 // import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-grid',
-  imports: [ CommonModule],
+  imports: [ CommonModule,ReactiveFormsModule],
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
@@ -16,7 +16,11 @@ export class GridComponent implements OnInit {
   selectedRows = new Set<string>();
   selectAllChecked = false;
   hover: number = -1;
-  constructor(private ApiService: ApiService) {}
+  showModal = false;
+  isEdit = false;
+  editIndex: number | null = null;
+  userForm !: FormGroup;
+  constructor(private ApiService: ApiService,private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.ApiService.fetchTeam().subscribe({
@@ -30,6 +34,27 @@ export class GridComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    this.loadForm();
+  }
+
+  loadForm(){
+    this.userForm = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      handle: ['', Validators.required],
+      role: ['', Validators.required],
+      license_used: [0, [Validators.required, Validators.min(0)]],
+      status: ['', Validators.required],
+      teams:[[]]
+    });
+  }
+
+
+  openAddModal() {
+    this.isEdit = false;
+    this.userForm.reset();
+    this.showModal = true;
   }
 
   getFullName(name: any): string {
@@ -57,8 +82,62 @@ export class GridComponent implements OnInit {
     return this.selectedRows.has(id);
   }
 
-  showEditPopup(row: any): void {
-    alert('Edit ' + this.getFullName(row.name));
+  // Modal Logic
+
+  openEditModal(index:number): void {
+    this.isEdit = true;
+    this.editIndex = index;
+    const user = this.data[index];
+    this.userForm.setValue({
+      first_name: user.name.first_name,
+      last_name: user.name.last_name,
+      handle: user.name.handle,
+      role: user.role,
+      license_used: user.license_used,
+      status: user.status,
+      teams:user.teams
+    });
+    this.showModal = true;
+  }
+
+
+  teamOptions = [
+    { value: 'Design', text_color: '#886FCE', background_color: '#F8F5FE' },
+    { value: 'Testing', text_color: '#FFB21A', background_color: '#FBF2E1' },
+    { value: 'Product', text_color: '#2C5BCC', background_color: '#F1F8FE' },
+    { value: 'Marketing', text_color: '#494DCB', background_color: '#EFF4FE' }
+  ];
+
+  saveUser(){
+    if (this.userForm.invalid) return;
+    const formData = this.userForm.value;
+    const newUser = {
+      id: crypto.randomUUID(),
+      name: {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        handle: formData.handle
+      },
+      role: formData.role,
+      license_used: formData.license_used,
+      status: formData.status,
+      teams: formData.teams
+    };
+
+    if (this.isEdit && this.editIndex !== null) {
+      this.data[this.editIndex] = { ...this.data[this.editIndex], ...newUser };
+      
+    } else {
+      this.data.unshift(newUser);
+      alert('Data Added Successfully..!')
+    }
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.userForm.reset();
+    this.editIndex = null;
   }
 
   deleteRow(index: number): void {
@@ -69,3 +148,4 @@ export class GridComponent implements OnInit {
     }
   }
 }
+

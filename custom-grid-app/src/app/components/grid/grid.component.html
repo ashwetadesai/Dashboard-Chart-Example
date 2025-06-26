@@ -1,6 +1,10 @@
+<div *ngIf="loading" class="grid-loader">
+  <div class="spinner"></div>
+</div>
 <div class="grid-wrapper" *ngIf="!loading">
   <div class="grid-header">
     <h3>Team members ({{ data.length }} users)</h3>
+    <button class="add-btn" (click)="openAddModal()">+ Add User</button>
   </div>
 
   <table class="grid-table">
@@ -101,7 +105,7 @@
 
         <!-- Actions -->
         <td>
-          <button class="action edit" (click)="showEditPopup(row)">
+          <button class="action edit" (click)="openEditModal(i)">
             ✏️
           </button>
           <button class="action delete" (click)="deleteRow(i)">
@@ -133,3 +137,33 @@
   </button>
 </div>
 </div>
+
+
+
+<!-- modal -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h3>{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
+
+    <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+      <input type="text" formControlName="first_name" placeholder="First Name" />
+      <input type="text" formControlName="last_name" placeholder="Last Name" />
+      <input type="text" formControlName="handle" placeholder="Handle" />
+      <input type="text" formControlName="role" placeholder="Role" />
+      <input type="number" formControlName="license_used" placeholder="License Used" />
+      <label>Teams</label>
+      <select formControlName="teams" multiple class="multi-select">
+        <option *ngFor="let team of teamOptions" [ngValue]="team">
+          {{ team.value }}
+        </option>
+      </select>
+      <input type="text" formControlName="status" placeholder="Status" />
+
+      <div class="modal-actions">
+        <button type="submit" [disabled]="userForm.invalid">{{ isEdit ? 'Update' : 'Add' }}</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
