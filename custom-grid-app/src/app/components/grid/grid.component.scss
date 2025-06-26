@@ -7,16 +7,16 @@
 
   .grid-header {
     margin-bottom: 16px;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     h3 {
       font-size: 18px;
       font-weight: 600;
     }
 
-    .add-btn{
+    .add-btn {
       // padding: 6px px;
-      width:110px;
+      width: 110px;
       font-weight: bold;
       border: none;
       border-radius: 6px;
@@ -175,7 +175,7 @@
   }
 }
 
-// style for loader 
+// style for loader
 .grid-loader {
   display: flex;
   align-items: center;
@@ -193,11 +193,13 @@
 }
 
 @keyframes spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-
 
 // modal style
 .modal-backdrop {
@@ -206,7 +208,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,7 +226,8 @@
       margin: 0 0 10px 0;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 8px 3px;
       border: 1px solid #ccc;
@@ -238,13 +241,12 @@
       border-radius: 6px;
       height: 100px;
     }
-    
 
     .modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top:22px;
+      margin-top: 22px;
       button {
         padding: 6px 12px;
         border: none;
@@ -262,5 +264,3 @@
     }
   }
 }
-
-

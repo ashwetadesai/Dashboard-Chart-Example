@@ -2,10 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/api.service';
 // import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 @Component({
   selector: 'app-grid',
-  imports: [ CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
@@ -19,8 +24,8 @@ export class GridComponent implements OnInit {
   showModal = false;
   isEdit = false;
   editIndex: number | null = null;
-  userForm !: FormGroup;
-  constructor(private ApiService: ApiService,private fb: FormBuilder) {}
+  userForm!: FormGroup;
+  constructor(private ApiService: ApiService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.ApiService.fetchTeam().subscribe({
@@ -32,13 +37,13 @@ export class GridComponent implements OnInit {
       error: (err) => {
         console.error(err);
         this.loading = false;
-      }
+      },
     });
 
     this.loadForm();
   }
 
-  loadForm(){
+  loadForm() {
     this.userForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -46,10 +51,9 @@ export class GridComponent implements OnInit {
       role: ['', Validators.required],
       license_used: [0, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required],
-      teams:[[]]
+      teams: [[]],
     });
   }
-
 
   openAddModal() {
     this.isEdit = false;
@@ -66,7 +70,7 @@ export class GridComponent implements OnInit {
     this.selectAllChecked = checked;
     this.selectedRows.clear();
     if (checked) {
-      this.data.forEach(item => this.selectedRows.add(item.id));
+      this.data.forEach((item) => this.selectedRows.add(item.id));
     }
   }
 
@@ -84,7 +88,7 @@ export class GridComponent implements OnInit {
 
   // Modal Logic
 
-  openEditModal(index:number): void {
+  openEditModal(index: number): void {
     this.isEdit = true;
     this.editIndex = index;
     const user = this.data[index];
@@ -95,24 +99,23 @@ export class GridComponent implements OnInit {
       role: user.role,
       license_used: user.license_used,
       status: user.status,
-      teams:user.teams.map((t:any)=>t.value)
+      teams: user.teams.map((t: any) => t.value),
     });
-    console.log(user.teams.map((t:any)=>t.value));
+    console.log(user.teams.map((t: any) => t.value));
     this.showModal = true;
   }
-
 
   teamOptions = [
     { value: 'Design', text_color: '#886FCE', background_color: '#F8F5FE' },
     { value: 'Testing', text_color: '#FFB21A', background_color: '#FBF2E1' },
     { value: 'Product', text_color: '#2C5BCC', background_color: '#F1F8FE' },
-    { value: 'Marketing', text_color: '#494DCB', background_color: '#EFF4FE' }
+    { value: 'Marketing', text_color: '#494DCB', background_color: '#EFF4FE' },
   ];
 
-  saveUser(){
+  saveUser() {
     if (this.userForm.invalid) return;
     const formData = this.userForm.value;
-    const selectedTeamObjects = this.teamOptions.filter(option =>
+    const selectedTeamObjects = this.teamOptions.filter((option) =>
       formData.teams.includes(option.value)
     );
     const newUser = {
@@ -120,20 +123,19 @@ export class GridComponent implements OnInit {
       name: {
         first_name: formData.first_name,
         last_name: formData.last_name,
-        handle: formData.handle
+        handle: formData.handle,
       },
       role: formData.role,
       license_used: formData.license_used,
       status: formData.status,
-      teams: selectedTeamObjects
+      teams: selectedTeamObjects,
     };
 
     if (this.isEdit && this.editIndex !== null) {
       this.data[this.editIndex] = { ...this.data[this.editIndex], ...newUser };
-      
     } else {
       this.data.unshift(newUser);
-      alert('Data Added Successfully..!')
+      alert('Data Added Successfully..!');
     }
     this.closeModal();
   }
@@ -152,4 +154,3 @@ export class GridComponent implements OnInit {
     }
   }
 }
-

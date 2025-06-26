@@ -63,8 +63,8 @@
               <span
                 class="status"
                 [ngClass]="{
-                  'customer': row[col.column_key] === 'Customer',
-                  'churned': row[col.column_key] === 'Churned'
+                  customer: row[col.column_key] === 'Customer',
+                  churned: row[col.column_key] === 'Churned'
                 }"
               >
                 {{ row[col.column_key] }}
@@ -105,52 +105,50 @@
 
         <!-- Actions -->
         <td>
-          <button class="action edit" (click)="openEditModal(i)">
-            ✏️
-          </button>
-          <button class="action delete" (click)="deleteRow(i)">
-            🗑️
-          </button>
+          <button class="action edit" (click)="openEditModal(i)">✏️</button>
+          <button class="action delete" (click)="deleteRow(i)">🗑️</button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <!-- Pagination (static display only) -->
-<div class="pagination-bar">
-  <button class="page-btn">
-    ← Previous
-  </button>
+  <div class="pagination-bar">
+    <button class="page-btn">← Previous</button>
 
-  <div class="pages">
-    <button class="page-number active">1</button>
-    <button class="page-number">2</button>
-    <button class="page-number">3</button>
-    <span class="dots">...</span>
-    <button class="page-number">8</button>
-    <button class="page-number">9</button>
-    <button class="page-number">10</button>
+    <div class="pages">
+      <button class="page-number active">1</button>
+      <button class="page-number">2</button>
+      <button class="page-number">3</button>
+      <span class="dots">...</span>
+      <button class="page-number">8</button>
+      <button class="page-number">9</button>
+      <button class="page-number">10</button>
+    </div>
+
+    <button class="page-btn">Next →</button>
   </div>
-
-  <button class="page-btn">
-    Next →
-  </button>
 </div>
-</div>
-
-
 
 <!-- modal -->
 <div class="modal-backdrop" *ngIf="showModal">
   <div class="modal">
-    <h3>{{ isEdit ? 'Edit User' : 'Add User' }}</h3>
+    <h3>{{ isEdit ? "Edit User" : "Add User" }}</h3>
 
     <form [formGroup]="userForm" (ngSubmit)="saveUser()">
-      <input type="text" formControlName="first_name" placeholder="First Name" />
+      <input
+        type="text"
+        formControlName="first_name"
+        placeholder="First Name"
+      />
       <input type="text" formControlName="last_name" placeholder="Last Name" />
       <input type="text" formControlName="handle" placeholder="Handle" />
       <input type="text" formControlName="role" placeholder="Role" />
-      <input type="number" formControlName="license_used" placeholder="License Used" />
+      <input
+        type="number"
+        formControlName="license_used"
+        placeholder="License Used"
+      />
       <label>Teams</label>
       <select formControlName="teams" multiple class="multi-select">
         <option *ngFor="let team of teamOptions" [ngValue]="team.value">
@@ -160,10 +158,11 @@
       <input type="text" formControlName="status" placeholder="Status" />
 
       <div class="modal-actions">
-        <button type="submit" [disabled]="userForm.invalid">{{ isEdit ? 'Update' : 'Add' }}</button>
+        <button type="submit" [disabled]="userForm.invalid">
+          {{ isEdit ? "Update" : "Add" }}
+        </button>
         <button type="button" (click)="closeModal()">Cancel</button>
       </div>
     </form>
   </div>
 </div>
-

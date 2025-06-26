@@ -3,15 +3,14 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
-  imports:[CommonModule],
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   icons = [
     { src: 'assets/icons/dashboard.svg', alt: 'Dashboard' },
     { src: 'assets/icons/team.svg', alt: 'Team' },
-    // Add other icons as needed
   ];
 
   onIconClick(icon: any) {

@@ -4,6 +4,5 @@ import { DashboardComponent } from './components/dashboard/dashboard/dashboard.c
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  // Future: { path: 'edit/:id', component: EditMemberComponent }
-  { path: '**', redirectTo: 'dashboard' } // fallback
+  { path: '**', redirectTo: 'dashboard' } 
 ];
