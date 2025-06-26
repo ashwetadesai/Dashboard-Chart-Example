@@ -34,9 +34,19 @@ export class ChartsComponent {
   };
 
   public barXAxis: ApexXAxis = {
+    title: {
+      text: 'Month'
+    },
+    
     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   };
-
+  public barYAxis: ApexYAxis = {
+    title: {
+      text: 'Security rating'
+    },
+    
+    
+  };
   public donutSeries: ApexNonAxisChartSeries = [80];
   public donutChart: ApexChart = {
     type: 'radialBar',
